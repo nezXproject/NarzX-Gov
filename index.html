@@ -29,6 +29,7 @@
       </a>
       <div class="search-box">
         <input type="text" placeholder="Cari informasi...">
+        <div id="searchResults"></div>
       </div>
     </div>
     <button class="menu-toggle">☰ Menu</button>
@@ -40,6 +41,7 @@
           <li><a href="pemerintahan.html">Pemerintahan</a></li>
           <li><a href="layanan.html">Layanan Publik</a></li>
           <li><a href="berita.html">Berita</a></li>
+          <li><a href="pengumuman.html">Pengumuman</a></li>
           <li><a href="agenda.html">Agenda</a></li>
           <li><a href="data.html">Data & Statistik</a></li>
           <li><a href="ppid.html">PPID</a></li>
@@ -87,7 +89,7 @@
           <div class="card-img">📰</div>
           <div class="card-body">
             <div class="date">19 September 2026</div>
-            <h3><a href="berita-detail.html">Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik</a></h3>
+            <h3><a href="berita-detail.html?id=1">Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik</a></h3>
             <p>Program ini bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat.</p>
           </div>
         </div>
@@ -95,7 +97,7 @@
           <div class="card-img">🛣️</div>
           <div class="card-body">
             <div class="date">18 September 2026</div>
-            <h3><a href="berita-detail.html">Gubernur NarzX Resmikan Infrastruktur Jalan Baru</a></h3>
+            <h3><a href="berita-detail.html?id=2">Gubernur NarzX Resmikan Infrastruktur Jalan Baru</a></h3>
             <p>Pembangunan jalan penghubung antar kecamatan resmi dibuka untuk umum.</p>
           </div>
         </div>
@@ -103,13 +105,32 @@
           <div class="card-img">🎭</div>
           <div class="card-body">
             <div class="date">17 September 2026</div>
-            <h3><a href="berita-detail.html">Festival Budaya NarzX 2026 Segera Digelar</a></h3>
+            <h3><a href="berita-detail.html?id=3">Festival Budaya NarzX 2026 Segera Digelar</a></h3>
             <p>Acara tahunan ini akan menampilkan berbagai pertunjukan seni dan kuliner khas daerah.</p>
           </div>
         </div>
       </div>
       <div style="text-align:center;margin-top:20px;">
         <a href="berita.html" class="btn btn-outline">Lihat Semua Berita</a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Pengumuman Terbaru</h2>
+      <div class="pengumuman-list">
+        <div class="pengumuman-item">
+          <div class="meta">20 September 2026 | Bagian Kepegawaian</div>
+          <h3>Pendaftaran CPNS Provinsi NarzX 2026 Dibuka <span class="label-baru">BARU</span></h3>
+          <p>Pendaftaran CPNS dibuka 1–15 Oktober 2026 melalui portal SSCASN dengan 250 formasi.</p>
+        </div>
+        <div class="pengumuman-item">
+          <div class="meta">18 September 2026 | Sekretariat Daerah</div>
+          <h3>Pengumuman Libur Nasional dan Cuti Bersama</h3>
+          <p>Kantor Pemprov NarzX tutup pada tanggal 25–27 September 2026.</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;">
+        <a href="pengumuman.html" class="btn btn-outline">Lihat Semua Pengumuman</a>
       </div>
     </section>
 
@@ -199,7 +220,7 @@
           <h4>Kontak</h4>
           <p>Jl. Merdeka No. 1, NarzX</p>
           <p>Telp: (021) 123-4567</p>
-          <p>Email: info@kknarzx.linkpc.net</p>
+          <p>Email: info@narzxgov.id</p>
         </div>
         <div class="footer-col">
           <h4>Ikuti Kami</h4>
@@ -215,6 +236,7 @@
     </div>
   </footer>
 
+  <script src="js/data.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
