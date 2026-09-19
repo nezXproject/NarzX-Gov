@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan Publik - NarzX Gov</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <span>Selamat datang di Portal Resmi NarzX Gov</span>
+      <div>
+        <a href="kontak.html">Kontak</a>
+        <a href="#" onclick="alert('Fitur ganti bahasa (demo).');return false;">ID | EN</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container header-main">
+      <a href="index.html" class="logo-area">
+        <div class="logo-box">NX</div>
+        <div class="logo-text">
+          <h1>NarzX Gov</h1>
+          <span>Pemerintah Provinsi NarzX</span>
+        </div>
+      </a>
+      <div class="search-box">
+        <input type="text" placeholder="Cari informasi...">
+      </div>
+    </div>
+    <button class="menu-toggle">☰ Menu</button>
+    <nav>
+      <div class="container">
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="profil.html">Profil</a></li>
+          <li><a href="pemerintahan.html">Pemerintahan</a></li>
+          <li><a href="layanan.html" class="active">Layanan Publik</a></li>
+          <li><a href="berita.html">Berita</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="data.html">Data & Statistik</a></li>
+          <li><a href="ppid.html">PPID</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="index.html">Beranda</a> &raquo; <span>Layanan Publik</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <section>
+      <h2 class="section-title">Daftar Layanan</h2>
+      <div class="layanan-grid">
+        <div class="layanan-item"><div class="icon">📄</div><p>Perizinan Online</p></div>
+        <div class="layanan-item"><div class="icon">🏥</div><p>Kesehatan</p></div>
+        <div class="layanan-item"><div class="icon">🎓</div><p>Pendidikan</p></div>
+        <div class="layanan-item"><div class="icon">🛣️</div><p>Infrastruktur</p></div>
+        <div class="layanan-item"><div class="icon">💼</div><p>Tenaga Kerja</p></div>
+        <div class="layanan-item"><div class="icon">📊</div><p>Data Statistik</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Formulir Permohonan Layanan</h2>
+      <div class="form-card">
+        <form id="layananForm">
+          <div class="form-group">
+            <label for="namaLayanan">Nama Lengkap</label>
+            <input type="text" id="namaLayanan" required placeholder="Masukkan nama lengkap">
+          </div>
+          <div class="form-group">
+            <label for="jenisLayanan">Jenis Layanan</label>
+            <select id="jenisLayanan" required>
+              <option value="">-- Pilih Layanan --</option>
+              <option value="Perizinan Online">Perizinan Online</option>
+              <option value="Kesehatan">Kesehatan</option>
+              <option value="Pendidikan">Pendidikan</option>
+              <option value="Infrastruktur">Infrastruktur</option>
+              <option value="Tenaga Kerja">Tenaga Kerja</option>
+              <option value="Data Statistik">Data Statistik</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="keterangan">Keterangan</label>
+            <textarea id="keterangan" rows="4" placeholder="Jelaskan keperluan Anda..."></textarea>
+          </div>
+          <button type="submit" class="btn">Kirim Permohonan</button>
+        </form>
+        <div id="hasilLayanan"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>NarzX Gov</h4>
+          <p>Portal resmi Pemerintah Provinsi NarzX. Menyajikan informasi, layanan, dan berita terkini untuk masyarakat.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tautan Cepat</h4>
+          <a href="profil.html">Profil Pemerintahan</a>
+          <a href="layanan.html">Layanan Publik</a>
+          <a href="berita.html">Berita & Pengumuman</a>
+          <a href="ppid.html">PPID</a>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <p>Jl. Merdeka No. 1, NarzX</p>
+          <p>Telp: (021) 123-4567</p>
+          <p>Email: info@narzxgov.id</p>
+        </div>
+        <div class="footer-col">
+          <h4>Ikuti Kami</h4>
+          <a href="#" onclick="alert('Demo link.');return false;">Facebook</a>
+          <a href="#" onclick="alert('Demo link.');return false;">Twitter / X</a>
+          <a href="#" onclick="alert('Demo link.');return false;">Instagram</a>
+          <a href="#" onclick="alert('Demo link.');return false;">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 NarzX Gov. Seluruh hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
