@@ -29,6 +29,7 @@
       </a>
       <div class="search-box">
         <input type="text" placeholder="Cari informasi...">
+        <div id="searchResults"></div>
       </div>
     </div>
     <button class="menu-toggle">☰ Menu</button>
@@ -40,6 +41,7 @@
           <li><a href="pemerintahan.html">Pemerintahan</a></li>
           <li><a href="layanan.html">Layanan Publik</a></li>
           <li><a href="berita.html" class="active">Berita</a></li>
+          <li><a href="pengumuman.html">Pengumuman</a></li>
           <li><a href="agenda.html">Agenda</a></li>
           <li><a href="data.html">Data & Statistik</a></li>
           <li><a href="ppid.html">PPID</a></li>
@@ -57,55 +59,87 @@
   <div class="container">
     <section>
       <h2 class="section-title">Semua Berita</h2>
-      <div class="grid-3">
-        <div class="card">
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-berita-filter="semua">Semua</button>
+        <button class="filter-btn" data-berita-filter="pemerintahan">Pemerintahan</button>
+        <button class="filter-btn" data-berita-filter="infrastruktur">Infrastruktur</button>
+        <button class="filter-btn" data-berita-filter="budaya">Budaya</button>
+        <button class="filter-btn" data-berita-filter="lingkungan">Lingkungan</button>
+        <button class="filter-btn" data-berita-filter="ekonomi">Ekonomi</button>
+        <button class="filter-btn" data-berita-filter="kesehatan">Kesehatan</button>
+      </div>
+
+      <div class="form-card" style="margin-bottom:20px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="beritaSearchInput">Cari berita</label>
+          <input type="text" id="beritaSearchInput" placeholder="Ketik kata kunci berita...">
+        </div>
+      </div>
+
+      <div id="beritaResultCount" style="font-size:13px;color:#666;margin-bottom:14px;"></div>
+
+      <div class="grid-3" id="beritaGrid">
+
+        <div class="card" data-kategori="pemerintahan" data-judul="pemprov narzx luncurkan program digitalisasi layanan publik" data-ringkas="program ini bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat.">
           <div class="card-img">📰</div>
           <div class="card-body">
             <div class="date">19 September 2026</div>
-            <h3><a href="berita-detail.html">Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik</a></h3>
+            <h3><a href="berita-detail.html?id=1">Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik</a></h3>
             <p>Program ini bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat.</p>
           </div>
         </div>
-        <div class="card">
+
+        <div class="card" data-kategori="infrastruktur" data-judul="gubernur narzx resmikan infrastruktur jalan baru" data-ringkas="pembangunan jalan penghubung antar kecamatan resmi dibuka untuk umum.">
           <div class="card-img">🛣️</div>
           <div class="card-body">
             <div class="date">18 September 2026</div>
-            <h3><a href="berita-detail.html">Gubernur NarzX Resmikan Infrastruktur Jalan Baru</a></h3>
+            <h3><a href="berita-detail.html?id=2">Gubernur NarzX Resmikan Infrastruktur Jalan Baru</a></h3>
             <p>Pembangunan jalan penghubung antar kecamatan resmi dibuka untuk umum.</p>
           </div>
         </div>
-        <div class="card">
+
+        <div class="card" data-kategori="budaya" data-judul="festival budaya narzx 2026 segera digelar" data-ringkas="acara tahunan ini akan menampilkan berbagai pertunjukan seni dan kuliner khas daerah.">
           <div class="card-img">🎭</div>
           <div class="card-body">
             <div class="date">17 September 2026</div>
-            <h3><a href="berita-detail.html">Festival Budaya NarzX 2026 Segera Digelar</a></h3>
+            <h3><a href="berita-detail.html?id=3">Festival Budaya NarzX 2026 Segera Digelar</a></h3>
             <p>Acara tahunan ini akan menampilkan berbagai pertunjukan seni dan kuliner khas daerah.</p>
           </div>
         </div>
-        <div class="card">
+
+        <div class="card" data-kategori="lingkungan" data-judul="program penghijauan di 35 kecamatan dimulai" data-ringkas="pemprov menargetkan penanaman 100.000 pohon dalam satu tahun.">
           <div class="card-img">🌱</div>
           <div class="card-body">
             <div class="date">15 September 2026</div>
-            <h3><a href="berita-detail.html">Program Penghijauan di 35 Kecamatan Dimulai</a></h3>
+            <h3><a href="berita-detail.html?id=4">Program Penghijauan di 35 Kecamatan Dimulai</a></h3>
             <p>Pemprov menargetkan penanaman 100.000 pohon dalam satu tahun.</p>
           </div>
         </div>
-        <div class="card">
+
+        <div class="card" data-kategori="ekonomi" data-judul="pelatihan digital marketing untuk umkm" data-ringkas="ratusan pelaku umkm mengikuti pelatihan untuk meningkatkan penjualan online.">
           <div class="card-img">💻</div>
           <div class="card-body">
             <div class="date">14 September 2026</div>
-            <h3><a href="berita-detail.html">Pelatihan Digital Marketing untuk UMKM</a></h3>
+            <h3><a href="berita-detail.html?id=5">Pelatihan Digital Marketing untuk UMKM</a></h3>
             <p>Ratusan pelaku UMKM mengikuti pelatihan untuk meningkatkan penjualan online.</p>
           </div>
         </div>
-        <div class="card">
+
+        <div class="card" data-kategori="kesehatan" data-judul="puskesmas di narzx dapat alat kesehatan baru" data-ringkas="pemerintah provinsi menyalurkan bantuan alat kesehatan ke 35 puskesmas.">
           <div class="card-img">🏥</div>
           <div class="card-body">
             <div class="date">12 September 2026</div>
-            <h3><a href="berita-detail.html">Puskesmas di NarzX Dapat Alat Kesehatan Baru</a></h3>
+            <h3><a href="berita-detail.html?id=6">Puskesmas di NarzX Dapat Alat Kesehatan Baru</a></h3>
             <p>Pemerintah Provinsi menyalurkan bantuan alat kesehatan ke 35 puskesmas.</p>
           </div>
         </div>
+
+      </div>
+
+      <div id="beritaEmpty" class="form-card" style="text-align:center;color:#666;display:none;margin-top:20px;">
+        <div style="font-size:40px;margin-bottom:10px;">🔍</div>
+        <p>Tidak ada berita yang cocok dengan filter/pencarian Anda.</p>
       </div>
     </section>
   </div>
@@ -144,6 +178,55 @@
     </div>
   </footer>
 
+  <script src="js/data.js"></script>
   <script src="js/script.js"></script>
+
+  <script>
+    // ===== FILTER & PENCARIAN DI HALAMAN BERITA =====
+    (function () {
+      const cards = document.querySelectorAll('#beritaGrid .card');
+      const filterBtns = document.querySelectorAll('[data-berita-filter]');
+      const searchInput = document.getElementById('beritaSearchInput');
+      const empty = document.getElementById('beritaEmpty');
+      const countEl = document.getElementById('beritaResultCount');
+      let aktif = 'semua';
+
+      function terapkan() {
+        const q = (searchInput.value || '').trim().toLowerCase();
+        let tampil = 0;
+
+        cards.forEach(card => {
+          const kat = card.dataset.kategori || '';
+          const judul = card.dataset.judul || '';
+          const ringkas = card.dataset.ringkas || '';
+          const cocokFilter = aktif === 'semua' || kat === aktif;
+          const cocokCari = q === '' || judul.includes(q) || ringkas.includes(q);
+
+          if (cocokFilter && cocokCari) {
+            card.style.display = '';
+            tampil++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (countEl) countEl.textContent = tampil + ' berita ditampilkan';
+        if (empty) empty.style.display = tampil === 0 ? 'block' : 'none';
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          aktif = btn.dataset.beritaFilter;
+          terapkan();
+        });
+      });
+
+      if (searchInput) searchInput.addEventListener('input', terapkan);
+
+      terapkan();
+    })();
+  </script>
 </body>
 </html>
