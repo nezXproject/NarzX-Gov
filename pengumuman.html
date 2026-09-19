@@ -60,44 +60,58 @@
     <section>
       <h2 class="section-title">Pengumuman Resmi</h2>
 
-      <div class="pengumuman-list">
+      <div class="form-card" style="margin-bottom:20px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label for="pengumumanSearchInput">Cari pengumuman</label>
+          <input type="text" id="pengumumanSearchInput" placeholder="Ketik kata kunci pengumuman...">
+        </div>
+      </div>
 
-        <div class="pengumuman-item">
+      <div id="pengumumanResultCount" style="font-size:13px;color:#666;margin-bottom:14px;"></div>
+
+      <div class="pengumuman-list" id="pengumumanList">
+
+        <div class="pengumuman-item" data-judul="pendaftaran cpns provinsi narzx 2026 dibuka" data-ringkas="pendaftaran calon pegawai negeri sipil cpns provinsi narzx tahun 2026 dibuka pada 1 15 oktober 2026 melalui portal sscasn. tersedia 250 formasi yang terdiri dari tenaga kesehatan, pendidikan, dan teknis.">
           <div class="meta">20 September 2026 | Bagian Kepegawaian</div>
           <h3>Pendaftaran CPNS Provinsi NarzX 2026 Dibuka <span class="label-baru">BARU</span></h3>
-          <p>Pendaftaran Calon Pegawai Negeri Sipil (CPNS) Provinsi NarzX tahun 2026 dibuka pada 1–15 Oktober 2026 melalui portal SSCASN. Tersedia 250 formasi yang terdiri dari tenaga kesehatan, pendidikan, dan teknis. Informasi lengkap dapat diunduh pada lampiran.</p>
+          <p>Pendaftaran Calon Pegawai Negeri Sipil (CPNS) Provinsi NarzX tahun 2026 dibuka pada 1–15 Oktober 2026 melalui portal SSCASN. Tersedia 250 formasi yang terdiri dari tenaga kesehatan, pendidikan, dan teknis.</p>
         </div>
 
-        <div class="pengumuman-item">
+        <div class="pengumuman-item" data-judul="pengumuman libur nasional dan cuti bersama" data-ringkas="sehubungan dengan libur nasional dan cuti bersama, kantor pemerintah provinsi narzx akan tutup pada tanggal 25 27 september 2026. layanan darurat tetap dibuka melalui call center 112.">
           <div class="meta">18 September 2026 | Sekretariat Daerah</div>
           <h3>Pengumuman Libur Nasional dan Cuti Bersama <span class="label-baru">BARU</span></h3>
           <p>Sehubungan dengan libur nasional dan cuti bersama, kantor Pemerintah Provinsi NarzX akan tutup pada tanggal 25–27 September 2026. Layanan darurat tetap dibuka melalui call center 112.</p>
         </div>
 
-        <div class="pengumuman-item">
+        <div class="pengumuman-item" data-judul="hasil seleksi administrasi beasiswa narzx cerdas 2026" data-ringkas="berdasarkan hasil seleksi administrasi program beasiswa narzx cerdas 2026, berikut daftar nama peserta yang dinyatakan lolos dan berhak mengikuti tahap selanjutnya.">
           <div class="meta">16 September 2026 | Dinas Pendidikan</div>
           <h3>Hasil Seleksi Administrasi Beasiswa NarzX Cerdas 2026</h3>
           <p>Berdasarkan hasil seleksi administrasi program Beasiswa NarzX Cerdas 2026, berikut daftar nama peserta yang dinyatakan lolos dan berhak mengikuti tahap selanjutnya. Peserta diharapkan hadir pada wawancara yang dijadwalkan 30 September 2026.</p>
         </div>
 
-        <div class="pengumuman-item">
+        <div class="pengumuman-item" data-judul="pemeliharaan sistem layanan online" data-ringkas="dalam rangka peningkatan kualitas layanan, sistem layanan online narzx gov akan dilakukan pemeliharaan pada 22 september 2026 pukul 00.00 04.00 wib.">
           <div class="meta">15 September 2026 | Dinas Kominfo</div>
           <h3>Pemeliharaan Sistem Layanan Online</h3>
           <p>Dalam rangka peningkatan kualitas layanan, sistem layanan online NarzX Gov akan dilakukan pemeliharaan pada 22 September 2026 pukul 00.00–04.00 WIB. Selama proses tersebut, layanan tidak dapat diakses sementara.</p>
         </div>
 
-        <div class="pengumuman-item">
+        <div class="pengumuman-item" data-judul="penerimaan bantuan sosial tahap iii 2026" data-ringkas="pemerintah provinsi narzx membuka pendaftaran penerima bantuan sosial tahap iii tahun 2026. pendaftaran dilakukan melalui kantor desa kelurahan setempat dengan membawa ktp dan kk.">
           <div class="meta">10 September 2026 | Dinas Sosial</div>
           <h3>Penerimaan Bantuan Sosial Tahap III 2026</h3>
           <p>Pemerintah Provinsi NarzX membuka pendaftaran penerima bantuan sosial tahap III tahun 2026. Pendaftaran dilakukan melalui kantor desa/kelurahan setempat dengan membawa KTP dan KK. Batas akhir pendaftaran 30 September 2026.</p>
         </div>
 
-        <div class="pengumuman-item">
+        <div class="pengumuman-item" data-judul="larangan pembakaran lahan selama musim kemarau" data-ringkas="dalam rangka mencegah kebakaran hutan dan lahan selama musim kemarau, masyarakat diminta untuk tidak melakukan pembakaran lahan. pelanggar akan dikenakan sanksi sesuai peraturan yang berlaku.">
           <div class="meta">5 September 2026 | Dinas Lingkungan Hidup</div>
           <h3>Larangan Pembakaran Lahan Selama Musim Kemarau</h3>
           <p>Dalam rangka mencegah kebakaran hutan dan lahan selama musim kemarau, masyarakat diminta untuk tidak melakukan pembakaran lahan. Pelanggar akan dikenakan sanksi sesuai peraturan yang berlaku.</p>
         </div>
 
+      </div>
+
+      <div id="pengumumanEmpty" class="form-card" style="text-align:center;color:#666;display:none;margin-top:20px;">
+        <div style="font-size:40px;margin-bottom:10px;">🔍</div>
+        <p>Tidak ada pengumuman yang cocok dengan pencarian Anda.</p>
       </div>
     </section>
   </div>
@@ -138,5 +152,39 @@
 
   <script src="js/data.js"></script>
   <script src="js/script.js"></script>
+
+  <script>
+    // ===== PENCARIAN DI HALAMAN PENGUMUMAN =====
+    (function () {
+      const items = document.querySelectorAll('#pengumumanList .pengumuman-item');
+      const input = document.getElementById('pengumumanSearchInput');
+      const empty = document.getElementById('pengumumanEmpty');
+      const countEl = document.getElementById('pengumumanResultCount');
+
+      function terapkan() {
+        const q = (input.value || '').trim().toLowerCase();
+        let tampil = 0;
+
+        items.forEach(item => {
+          const judul = item.dataset.judul || '';
+          const ringkas = item.dataset.ringkas || '';
+          const cocok = q === '' || judul.includes(q) || ringkas.includes(q);
+
+          if (cocok) {
+            item.style.display = '';
+            tampil++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        if (countEl) countEl.textContent = tampil + ' pengumuman ditampilkan';
+        if (empty) empty.style.display = tampil === 0 ? 'block' : 'none';
+      }
+
+      if (input) input.addEventListener('input', terapkan);
+      terapkan();
+    })();
+  </script>
 </body>
 </html>
