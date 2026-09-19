@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NarzX Gov - Portal Resmi Pemerintah Provinsi</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+body { background: #f4f6f9; color: #222; }
+a { color: inherit; }
+
+/* TOPBAR */
+.topbar { background: #0b3d2e; color: #fff; font-size: 13px; padding: 6px 0; }
+.topbar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.topbar a { color: #fff; text-decoration: none; margin-left: 15px; cursor: pointer; }
+.topbar a:hover { color: #ffd700; }
+
+/* HEADER */
+header { background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
+.header-main { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 10px; flex-wrap: wrap; }
+.logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; }
+.logo-box { width: 55px; height: 55px; background: #0b3d2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffd700; font-weight: bold; font-size: 22px; }
+.logo-text h1 { font-size: 20px; color: #0b3d2e; line-height: 1.2; }
+.logo-text span { font-size: 12px; color: #666; }
+.search-box { position: relative; }
+.search-box input { border: 1px solid #ccc; border-radius: 20px; padding: 8px 16px; outline: none; width: 220px; }
+.search-box input:focus { border-color: #0b3d2e; }
+
+/* NAV */
+nav { background: #0b3d2e; }
+nav ul { list-style: none; display: flex; flex-wrap: wrap; }
+nav ul li a { display: block; color: #fff; text-decoration: none; padding: 14px 18px; font-size: 14px; font-weight: 500; transition: background 0.2s, color 0.2s; cursor: pointer; }
+nav ul li a:hover, nav ul li a.active { background: #ffd700; color: #0b3d2e; }
+.menu-toggle { display: none; background: #0b3d2e; color: #ffd700; border: none; font-size: 22px; padding: 12px 16px; cursor: pointer; width: 100%; text-align: left; }
+
+/* CONTAINER */
+.container { width: 92%; max-width: 1200px; margin: 0 auto; }
+
+/* HERO */
+.hero { background: linear-gradient(135deg, #0b3d2e 0%, #146b4f 100%); color: #fff; padding: 60px 0; text-align: center; margin-bottom: 30px; }
+.hero h2 { font-size: 32px; margin-bottom: 12px; }
+.hero p { font-size: 16px; opacity: 0.9; max-width: 700px; margin: 0 auto 20px; }
+.btn { display: inline-block; background: #ffd700; color: #0b3d2e; padding: 12px 28px; border-radius: 30px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; font-size: 14px; transition: transform 0.2s; }
+.btn:hover { transform: scale(1.05); }
+.btn-outline { background: transparent; color: #0b3d2e; border: 2px solid #0b3d2e; }
+.btn-outline:hover { background: #0b3d2e; color: #ffd700; }
+
+/* SECTION */
+section.halaman { display: none; margin-bottom: 40px; }
+section.halaman.aktif { display: block; }
+.section-title { font-size: 22px; color: #0b3d2e; border-left: 5px solid #ffd700; padding-left: 12px; margin-bottom: 20px; }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+
+/* CARD */
+.card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+.card-img { height: 160px; background: linear-gradient(135deg, #cbd5e1, #94a3b8); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 40px; }
+.card-body { padding: 16px; }
+.card-body .date { font-size: 12px; color: #888; margin-bottom: 6px; }
+.card-body h3 { font-size: 16px; color: #0b3d2e; margin-bottom: 8px; line-height: 1.4; }
+.card-body h3 a { text-decoration: none; cursor: pointer; }
+.card-body h3 a:hover { color: #146b4f; }
+.card-body p { font-size: 14px; color: #555; line-height: 1.5; }
+
+/* LAYANAN */
+.layanan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+.layanan-item { background: #fff; border-radius: 8px; padding: 24px 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: background 0.2s, color 0.2s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+.layanan-item:hover { background: #0b3d2e; color: #fff; }
+.layanan-item .icon { font-size: 32px; margin-bottom: 8px; }
+.layanan-item p { font-size: 14px; font-weight: 500; }
+
+/* AGENDA */
+.agenda-list { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.agenda-item { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #eee; }
+.agenda-item:last-child { border-bottom: none; }
+.agenda-date { background: #0b3d2e; color: #ffd700; border-radius: 6px; padding: 8px 12px; text-align: center; min-width: 60px; }
+.agenda-date .day { font-size: 20px; font-weight: bold; line-height: 1; }
+.agenda-date .month { font-size: 11px; }
+.agenda-info h4 { font-size: 15px; color: #0b3d2e; margin-bottom: 4px; }
+.agenda-info p { font-size: 13px; color: #666; }
+
+/* STATS */
+.stat-card { background: #fff; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-top: 4px solid #ffd700; }
+.stat-card .num { font-size: 32px; font-weight: bold; color: #0b3d2e; margin-bottom: 6px; }
+.stat-card .label { font-size: 13px; color: #666; }
+
+/* FORM */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: #0b3d2e; font-weight: 500; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 14px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; outline: none; font-family: inherit; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #0b3d2e; }
+.form-card { background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+table th, table td { padding: 12px 14px; text-align: left; font-size: 14px; border-bottom: 1px solid #eee; }
+table th { background: #0b3d2e; color: #ffd700; font-weight: 600; }
+table tr:hover td { background: #f9fafb; }
+
+/* BAR CHART */
+.bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 240px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.bar-item { flex: 1; max-width: 60px; margin: 0 8px; text-align: center; }
+.bar { background: linear-gradient(180deg, #146b4f, #0b3d2e); border-radius: 6px 6px 0 0; margin: 0 auto; }
+.bar-item .val { font-size: 12px; color: #0b3d2e; font-weight: bold; margin-bottom: 4px; }
+.bar-item .lbl { font-size: 12px; color: #666; margin-top: 6px; }
+
+/* PENGUMUMAN */
+.pengumuman-list { display: flex; flex-direction: column; gap: 16px; }
+.pengumuman-item { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 5px solid #ffd700; transition: transform 0.2s; }
+.pengumuman-item:hover { transform: translateX(4px); }
+.pengumuman-item h3 { color: #0b3d2e; font-size: 17px; margin-bottom: 6px; }
+.pengumuman-item .meta { font-size: 12px; color: #888; margin-bottom: 10px; }
+.pengumuman-item p { font-size: 14px; color: #555; line-height: 1.6; }
+.pengumuman-item .label-baru { display: inline-block; background: #d62828; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle; font-weight: bold; }
+
+/* SEARCH DROPDOWN */
+#searchResults { position: absolute; top: 110%; right: 0; width: 380px; max-width: 92vw; background: #fff; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); max-height: 420px; overflow-y: auto; display: none; z-index: 999; border: 1px solid #eee; }
+.search-item { display: flex; gap: 12px; padding: 12px 14px; text-decoration: none; color: #222; border-bottom: 1px solid #f1f1f1; align-items: flex-start; transition: background 0.15s; cursor: pointer; }
+.search-item:last-child { border-bottom: none; }
+.search-item:hover { background: #f4f6f9; }
+.search-icon { font-size: 22px; line-height: 1; flex-shrink: 0; }
+.search-info { display: flex; flex-direction: column; min-width: 0; }
+.search-info strong { font-size: 14px; color: #0b3d2e; line-height: 1.4; word-break: break-word; }
+.search-info span { font-size: 12px; color: #666; margin-top: 3px; line-height: 1.4; word-break: break-word; }
+.search-info mark { background: #ffd700; color: #0b3d2e; padding: 0 2px; border-radius: 2px; }
+.search-more { display: block; padding: 12px 14px; text-align: center; font-size: 13px; color: #0b3d2e; font-weight: bold; background: #f9fafb; border-top: 1px solid #eee; cursor: pointer; }
+
+/* FILTER */
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.filter-btn { background: #fff; border: 1px solid #ccc; color: #0b3d2e; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+.filter-btn:hover { border-color: #0b3d2e; }
+.filter-btn.active { background: #0b3d2e; color: #ffd700; border-color: #0b3d2e; }
+
+/* BREADCRUMB */
+.breadcrumb { background: #fff; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 13px; color: #666; margin-bottom: 30px; }
+.breadcrumb a { color: #0b3d2e; text-decoration: none; cursor: pointer; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+/* FOOTER */
+footer { background: #0b3d2e; color: #ddd; padding: 40px 0 20px; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-bottom: 30px; }
+.footer-col h4 { color: #ffd700; margin-bottom: 14px; font-size: 16px; }
+.footer-col p, .footer-col a { font-size: 14px; color: #ccc; text-decoration: none; line-height: 1.8; display: block; cursor: pointer; }
+.footer-col a:hover { color: #ffd700; }
+.footer-bottom { border-top: 1px solid #1a5a45; padding-top: 16px; text-align: center; font-size: 13px; color: #aaa; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .menu-toggle { display: block; }
+  nav ul { display: none; flex-direction: column; }
+  nav ul.open { display: flex; }
+  nav ul li a { border-top: 1px solid #1a5a45; }
+  .hero h2 { font-size: 24px; }
+  .search-box input { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span>Selamat datang di Portal Resmi NarzX Gov</span>
+    <div>
+      <a data-nav="kontak">Kontak</a>
+      <a onclick="alert('Fitur ganti bahasa (demo).')">ID | EN</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="container header-main">
+    <a class="logo-area" data-nav="beranda">
+      <div class="logo-box">NX</div>
+      <div class="logo-text">
+        <h1>NarzX Gov</h1>
+        <span>Pemerintah Provinsi NarzX</span>
+      </div>
+    </a>
+    <div class="search-box">
+      <input type="text" placeholder="Cari informasi...">
+      <div id="searchResults"></div>
+    </div>
+  </div>
+  <button class="menu-toggle">☰ Menu</button>
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a data-nav="beranda" class="active">Beranda</a></li>
+        <li><a data-nav="profil">Profil</a></li>
+        <li><a data-nav="pemerintahan">Pemerintahan</a></li>
+        <li><a data-nav="layanan">Layanan Publik</a></li>
+        <li><a data-nav="berita">Berita</a></li>
+        <li><a data-nav="pengumuman">Pengumuman</a></li>
+        <li><a data-nav="agenda">Agenda</a></li>
+        <li><a data-nav="data">Data & Statistik</a></li>
+        <li><a data-nav="ppid">PPID</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= BERANDA ================= -->
+<section class="halaman aktif" id="page-beranda">
+  <div class="hero">
+    <div class="container">
+      <h2>Selamat Datang di Portal Resmi NarzX Gov</h2>
+      <p>Mewujudkan pelayanan publik yang transparan, akuntabel, dan inovatif untuk masyarakat Provinsi NarzX.</p>
+      <a class="btn" data-nav="layanan">Jelajahi Layanan</a>
+    </div>
+  </div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Statistik Singkat</h2>
+      <div class="grid-4">
+        <div class="stat-card"><div class="num">2.5 Jt</div><div class="label">Jumlah Penduduk</div></div>
+        <div class="stat-card"><div class="num">35</div><div class="label">Kecamatan</div></div>
+        <div class="stat-card"><div class="num">120+</div><div class="label">Layanan Publik</div></div>
+        <div class="stat-card"><div class="num">98%</div><div class="label">Kepuasan Masyarakat</div></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Berita Terkini</h2>
+      <div class="grid-3">
+        <div class="card"><div class="card-img">📰</div><div class="card-body"><div class="date">19 September 2026</div><h3><a data-berita="1">Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik</a></h3><p>Program ini bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat.</p></div></div>
+        <div class="card"><div class="card-img">🛣️</div><div class="card-body"><div class="date">18 September 2026</div><h3><a data-berita="2">Gubernur NarzX Resmikan Infrastruktur Jalan Baru</a></h3><p>Pembangunan jalan penghubung antar kecamatan resmi dibuka untuk umum.</p></div></div>
+        <div class="card"><div class="card-img">🎭</div><div class="card-body"><div class="date">17 September 2026</div><h3><a data-berita="3">Festival Budaya NarzX 2026 Segera Digelar</a></h3><p>Acara tahunan ini akan menampilkan berbagai pertunjukan seni dan kuliner khas daerah.</p></div></div>
+      </div>
+      <div style="text-align:center;margin-top:20px;"><a class="btn btn-outline" data-nav="berita">Lihat Semua Berita</a></div>
+    </section>
+    <section>
+      <h2 class="section-title">Pengumuman Terbaru</h2>
+      <div class="pengumuman-list">
+        <div class="pengumuman-item"><div class="meta">20 September 2026 | Bagian Kepegawaian</div><h3>Pendaftaran CPNS Provinsi NarzX 2026 Dibuka <span class="label-baru">BARU</span></h3><p>Pendaftaran CPNS dibuka 1–15 Oktober 2026 melalui portal SSCASN dengan 250 formasi.</p></div>
+        <div class="pengumuman-item"><div class="meta">18 September 2026 | Sekretariat Daerah</div><h3>Pengumuman Libur Nasional dan Cuti Bersama</h3><p>Kantor Pemprov NarzX tutup pada tanggal 25–27 September 2026.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:20px;"><a class="btn btn-outline" data-nav="pengumuman">Lihat Semua Pengumuman</a></div>
+    </section>
+    <section>
+      <h2 class="section-title">Layanan Publik</h2>
+      <div class="layanan-grid">
+        <a class="layanan-item" data-nav="layanan"><div class="icon">📄</div><p>Perizinan Online</p></a>
+        <a class="layanan-item" data-nav="layanan"><div class="icon">🏥</div><p>Kesehatan</p></a>
+        <a class="layanan-item" data-nav="layanan"><div class="icon">🎓</div><p>Pendidikan</p></a>
+        <a class="layanan-item" data-nav="layanan"><div class="icon">🛣️</div><p>Infrastruktur</p></a>
+        <a class="layanan-item" data-nav="layanan"><div class="icon">💼</div><p>Tenaga Kerja</p></a>
+        <a class="layanan-item" data-nav="data"><div class="icon">📊</div><p>Data Statistik</p></a>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Agenda Kegiatan</h2>
+      <div class="agenda-list">
+        <div class="agenda-item"><div class="agenda-date"><div class="day">22</div><div class="month">SEP</div></div><div class="agenda-info"><h4>Rapat Koordinasi Perangkat Daerah</h4><p>09.00 WIB - Gedung Serbaguna NarzX</p></div></div>
+        <div class="agenda-item"><div class="agenda-date"><div class="day">25</div><div class="month">SEP</div></div><div class="agenda-info"><h4>Peluncuran Program Desa Digital</h4><p>10.30 WIB - Kecamatan NarzX Timur</p></div></div>
+        <div class="agenda-item"><div class="agenda-date"><div class="day">30</div><div class="month">SEP</div></div><div class="agenda-info"><h4>Musyawarah Perencanaan Pembangunan</h4><p>08.00 WIB - Aula Pemprov NarzX</p></div></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= PROFIL ================= -->
+<section class="halaman" id="page-profil">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Profil</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Profil Provinsi NarzX</h2>
+      <div class="form-card">
+        <p style="line-height:1.8;color:#444;">Provinsi NarzX merupakan salah satu provinsi yang terus berkembang dengan semangat inovasi dan pelayanan publik yang prima. Dengan jumlah penduduk sekitar 2,5 juta jiwa yang tersebar di 35 kecamatan, NarzX memiliki potensi besar di bidang pertanian, pariwisata, dan industri kreatif.</p>
+        <br>
+        <p style="line-height:1.8;color:#444;">Visi Provinsi NarzX adalah <strong>"Terwujudnya NarzX yang Maju, Mandiri, dan Sejahtera Berbasis Digital"</strong>. Visi ini dijabarkan dalam berbagai program pembangunan yang berfokus pada peningkatan kualitas sumber daya manusia, infrastruktur, dan ekonomi kerakyatan.</p>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Visi & Misi</h2>
+      <div class="grid-2">
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Visi</h3><p style="line-height:1.8;color:#444;">"Terwujudnya NarzX yang Maju, Mandiri, dan Sejahtera Berbasis Digital."</p></div>
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Misi</h3><ul style="line-height:1.9;color:#444;padding-left:18px;"><li>Meningkatkan kualitas pelayanan publik berbasis teknologi.</li><li>Mengembangkan infrastruktur yang merata dan berkelanjutan.</li><li>Memberdayakan ekonomi kerakyatan dan UMKM.</li><li>Meningkatkan kualitas pendidikan dan kesehatan.</li><li>Melestarikan budaya dan lingkungan hidup.</li></ul></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Sejarah Singkat</h2>
+      <div class="form-card"><p style="line-height:1.8;color:#444;">Provinsi NarzX dibentuk pada tahun 1965 sebagai bagian dari penataan wilayah administratif nasional. Sejak saat itu, NarzX terus mengalami perkembangan pesat di berbagai sektor, mulai dari pertanian, perdagangan, hingga pariwisata. Kini, NarzX dikenal sebagai salah satu provinsi dengan pertumbuhan ekonomi stabil dan indeks pembangunan manusia yang terus meningkat.</p></div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= PEMERINTAHAN ================= -->
+<section class="halaman" id="page-pemerintahan">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Pemerintahan</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Struktur Pemerintahan</h2>
+      <div class="form-card"><p style="line-height:1.8;color:#444;">Pemerintah Provinsi NarzX dipimpin oleh seorang Gubernur dan Wakil Gubernur yang dibantu oleh Sekretaris Daerah serta sejumlah dinas dan badan.</p></div>
+    </section>
+    <section>
+      <h2 class="section-title">Pejabat Utama</h2>
+      <div class="grid-3">
+        <div class="card"><div class="card-img">👤</div><div class="card-body"><h3>Dr. Andi Prasetyo, M.Si</h3><p><strong>Gubernur NarzX</strong></p></div></div>
+        <div class="card"><div class="card-img">👤</div><div class="card-body"><h3>Dra. Siti Rahmawati, M.M</h3><p><strong>Wakil Gubernur NarzX</strong></p></div></div>
+        <div class="card"><div class="card-img">👤</div><div class="card-body"><h3>Ir. Budi Santoso, M.T</h3><p><strong>Sekretaris Daerah</strong></p></div></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Dinas & Badan</h2>
+      <div class="grid-2">
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Dinas</h3><ul style="line-height:1.9;color:#444;padding-left:18px;"><li>Dinas Pendidikan</li><li>Dinas Kesehatan</li><li>Dinas Pekerjaan Umum</li><li>Dinas Sosial</li><li>Dinas Perhubungan</li><li>Dinas Lingkungan Hidup</li></ul></div>
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Badan</h3><ul style="line-height:1.9;color:#444;padding-left:18px;"><li>Bappeda</li><li>Badan Kepegawaian Daerah</li><li>Badan Pengelola Keuangan Daerah</li><li>Badan Penanggulangan Bencana Daerah</li><li>Inspektorat Provinsi</li></ul></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= LAYANAN ================= -->
+<section class="halaman" id="page-layanan">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Layanan Publik</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Daftar Layanan</h2>
+      <div class="layanan-grid">
+        <div class="layanan-item"><div class="icon">📄</div><p>Perizinan Online</p></div>
+        <div class="layanan-item"><div class="icon">🏥</div><p>Kesehatan</p></div>
+        <div class="layanan-item"><div class="icon">🎓</div><p>Pendidikan</p></div>
+        <div class="layanan-item"><div class="icon">🛣️</div><p>Infrastruktur</p></div>
+        <div class="layanan-item"><div class="icon">💼</div><p>Tenaga Kerja</p></div>
+        <div class="layanan-item"><div class="icon">📊</div><p>Data Statistik</p></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Formulir Permohonan Layanan</h2>
+      <div class="form-card">
+        <form id="layananForm">
+          <div class="form-group"><label for="namaLayanan">Nama Lengkap</label><input type="text" id="namaLayanan" required placeholder="Masukkan nama lengkap"></div>
+          <div class="form-group"><label for="jenisLayanan">Jenis Layanan</label><select id="jenisLayanan" required><option value="">-- Pilih Layanan --</option><option>Perizinan Online</option><option>Kesehatan</option><option>Pendidikan</option><option>Infrastruktur</option><option>Tenaga Kerja</option><option>Data Statistik</option></select></div>
+          <div class="form-group"><label for="keterangan">Keterangan</label><textarea id="keterangan" rows="4" placeholder="Jelaskan keperluan Anda..."></textarea></div>
+          <button type="submit" class="btn">Kirim Permohonan</button>
+        </form>
+        <div id="hasilLayanan"></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= BERITA ================= -->
+<section class="halaman" id="page-berita">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Berita</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Semua Berita</h2>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-berita-filter="semua">Semua</button>
+        <button class="filter-btn" data-berita-filter="pemerintahan">Pemerintahan</button>
+        <button class="filter-btn" data-berita-filter="infrastruktur">Infrastruktur</button>
+        <button class="filter-btn" data-berita-filter="budaya">Budaya</button>
+        <button class="filter-btn" data-berita-filter="lingkungan">Lingkungan</button>
+        <button class="filter-btn" data-berita-filter="ekonomi">Ekonomi</button>
+        <button class="filter-btn" data-berita-filter="kesehatan">Kesehatan</button>
+      </div>
+      <div class="form-card" style="margin-bottom:20px;"><div class="form-group" style="margin-bottom:0;"><label for="beritaSearchInput">Cari berita</label><input type="text" id="beritaSearchInput" placeholder="Ketik kata kunci berita..."></div></div>
+      <div id="beritaResultCount" style="font-size:13px;color:#666;margin-bottom:14px;"></div>
+      <div class="grid-3" id="beritaGrid">
+        <div class="card" data-kategori="pemerintahan" data-judul="pemprov narzx luncurkan program digitalisasi layanan publik" data-ringkas="program ini bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat."><div class="card-img">📰</div><div class="card-body"><div class="date">19 September 2026</div><h3><a data-berita="1">Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik</a></h3><p>Program ini bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat.</p></div></div>
+        <div class="card" data-kategori="infrastruktur" data-judul="gubernur narzx resmikan infrastruktur jalan baru" data-ringkas="pembangunan jalan penghubung antar kecamatan resmi dibuka untuk umum."><div class="card-img">🛣️</div><div class="card-body"><div class="date">18 September 2026</div><h3><a data-berita="2">Gubernur NarzX Resmikan Infrastruktur Jalan Baru</a></h3><p>Pembangunan jalan penghubung antar kecamatan resmi dibuka untuk umum.</p></div></div>
+        <div class="card" data-kategori="budaya" data-judul="festival budaya narzx 2026 segera digelar" data-ringkas="acara tahunan ini akan menampilkan berbagai pertunjukan seni dan kuliner khas daerah."><div class="card-img">🎭</div><div class="card-body"><div class="date">17 September 2026</div><h3><a data-berita="3">Festival Budaya NarzX 2026 Segera Digelar</a></h3><p>Acara tahunan ini akan menampilkan berbagai pertunjukan seni dan kuliner khas daerah.</p></div></div>
+        <div class="card" data-kategori="lingkungan" data-judul="program penghijauan di 35 kecamatan dimulai" data-ringkas="pemprov menargetkan penanaman 100.000 pohon dalam satu tahun."><div class="card-img">🌱</div><div class="card-body"><div class="date">15 September 2026</div><h3><a data-berita="4">Program Penghijauan di 35 Kecamatan Dimulai</a></h3><p>Pemprov menargetkan penanaman 100.000 pohon dalam satu tahun.</p></div></div>
+        <div class="card" data-kategori="ekonomi" data-judul="pelatihan digital marketing untuk umkm" data-ringkas="ratusan pelaku umkm mengikuti pelatihan untuk meningkatkan penjualan online."><div class="card-img">💻</div><div class="card-body"><div class="date">14 September 2026</div><h3><a data-berita="5">Pelatihan Digital Marketing untuk UMKM</a></h3><p>Ratusan pelaku UMKM mengikuti pelatihan untuk meningkatkan penjualan online.</p></div></div>
+        <div class="card" data-kategori="kesehatan" data-judul="puskesmas di narzx dapat alat kesehatan baru" data-ringkas="pemerintah provinsi menyalurkan bantuan alat kesehatan ke 35 puskesmas."><div class="card-img">🏥</div><div class="card-body"><div class="date">12 September 2026</div><h3><a data-berita="6">Puskesmas di NarzX Dapat Alat Kesehatan Baru</a></h3><p>Pemerintah Provinsi menyalurkan bantuan alat kesehatan ke 35 puskesmas.</p></div></div>
+      </div>
+      <div id="beritaEmpty" class="form-card" style="text-align:center;color:#666;display:none;margin-top:20px;"><div style="font-size:40px;margin-bottom:10px;">🔍</div><p>Tidak ada berita yang cocok dengan filter/pencarian Anda.</p></div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= BERITA DETAIL ================= -->
+<section class="halaman" id="page-berita-detail">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <a data-nav="berita">Berita</a> &raquo; <span>Detail</span></div></div>
+  <div class="container"><section><div class="form-card" id="beritaDetail"></div></section></div>
+</section>
+
+<!-- ================= PENGUMUMAN ================= -->
+<section class="halaman" id="page-pengumuman">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Pengumuman</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Pengumuman Resmi</h2>
+      <div class="form-card" style="margin-bottom:20px;"><div class="form-group" style="margin-bottom:0;"><label for="pengumumanSearchInput">Cari pengumuman</label><input type="text" id="pengumumanSearchInput" placeholder="Ketik kata kunci pengumuman..."></div></div>
+      <div id="pengumumanResultCount" style="font-size:13px;color:#666;margin-bottom:14px;"></div>
+      <div class="pengumuman-list" id="pengumumanList">
+        <div class="pengumuman-item" data-judul="pendaftaran cpns provinsi narzx 2026 dibuka" data-ringkas="pendaftaran calon pegawai negeri sipil cpns provinsi narzx tahun 2026 dibuka pada 1 15 oktober 2026 melalui portal sscasn. tersedia 250 formasi yang terdiri dari tenaga kesehatan, pendidikan, dan teknis."><div class="meta">20 September 2026 | Bagian Kepegawaian</div><h3>Pendaftaran CPNS Provinsi NarzX 2026 Dibuka <span class="label-baru">BARU</span></h3><p>Pendaftaran Calon Pegawai Negeri Sipil (CPNS) Provinsi NarzX tahun 2026 dibuka pada 1–15 Oktober 2026 melalui portal SSCASN. Tersedia 250 formasi yang terdiri dari tenaga kesehatan, pendidikan, dan teknis.</p></div>
+        <div class="pengumuman-item" data-judul="pengumuman libur nasional dan cuti bersama" data-ringkas="sehubungan dengan libur nasional dan cuti bersama kantor pemerintah provinsi narzx akan tutup pada tanggal 25 27 september 2026."><div class="meta">18 September 2026 | Sekretariat Daerah</div><h3>Pengumuman Libur Nasional dan Cuti Bersama <span class="label-baru">BARU</span></h3><p>Sehubungan dengan libur nasional dan cuti bersama, kantor Pemerintah Provinsi NarzX akan tutup pada tanggal 25–27 September 2026. Layanan darurat tetap dibuka melalui call center 112.</p></div>
+        <div class="pengumuman-item" data-judul="hasil seleksi administrasi beasiswa narzx cerdas 2026" data-ringkas="berdasarkan hasil seleksi administrasi program beasiswa narzx cerdas 2026 berikut daftar nama peserta yang dinyatakan lolos dan berhak mengikuti tahap selanjutnya."><div class="meta">16 September 2026 | Dinas Pendidikan</div><h3>Hasil Seleksi Administrasi Beasiswa NarzX Cerdas 2026</h3><p>Berdasarkan hasil seleksi administrasi program Beasiswa NarzX Cerdas 2026, berikut daftar nama peserta yang dinyatakan lolos dan berhak mengikuti tahap selanjutnya. Peserta diharapkan hadir pada wawancara yang dijadwalkan 30 September 2026.</p></div>
+        <div class="pengumuman-item" data-judul="pemeliharaan sistem layanan online" data-ringkas="dalam rangka peningkatan kualitas layanan sistem layanan online narzx gov akan dilakukan pemeliharaan pada 22 september 2026 pukul 00.00 04.00 wib."><div class="meta">15 September 2026 | Dinas Kominfo</div><h3>Pemeliharaan Sistem Layanan Online</h3><p>Dalam rangka peningkatan kualitas layanan, sistem layanan online NarzX Gov akan dilakukan pemeliharaan pada 22 September 2026 pukul 00.00–04.00 WIB. Selama proses tersebut, layanan tidak dapat diakses sementara.</p></div>
+        <div class="pengumuman-item" data-judul="penerimaan bantuan sosial tahap iii 2026" data-ringkas="pemerintah provinsi narzx membuka pendaftaran penerima bantuan sosial tahap iii tahun 2026."><div class="meta">10 September 2026 | Dinas Sosial</div><h3>Penerimaan Bantuan Sosial Tahap III 2026</h3><p>Pemerintah Provinsi NarzX membuka pendaftaran penerima bantuan sosial tahap III tahun 2026. Pendaftaran dilakukan melalui kantor desa/kelurahan setempat dengan membawa KTP dan KK. Batas akhir pendaftaran 30 September 2026.</p></div>
+        <div class="pengumuman-item" data-judul="larangan pembakaran lahan selama musim kemarau" data-ringkas="dalam rangka mencegah kebakaran hutan dan lahan selama musim kemarau masyarakat diminta untuk tidak melakukan pembakaran lahan."><div class="meta">5 September 2026 | Dinas Lingkungan Hidup</div><h3>Larangan Pembakaran Lahan Selama Musim Kemarau</h3><p>Dalam rangka mencegah kebakaran hutan dan lahan selama musim kemarau, masyarakat diminta untuk tidak melakukan pembakaran lahan. Pelanggar akan dikenakan sanksi sesuai peraturan yang berlaku.</p></div>
+      </div>
+      <div id="pengumumanEmpty" class="form-card" style="text-align:center;color:#666;display:none;margin-top:20px;"><div style="font-size:40px;margin-bottom:10px;">🔍</div><p>Tidak ada pengumuman yang cocok dengan pencarian Anda.</p></div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= PENCARIAN ================= -->
+<section class="halaman" id="page-pencarian">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Pencarian</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Pencarian</h2>
+      <div class="form-card" style="margin-bottom:20px;"><div class="form-group" style="margin-bottom:0;"><label for="fullSearchInput">Kata kunci</label><input type="text" id="fullSearchInput" placeholder="Ketik untuk mencari berita, pengumuman, layanan, agenda..."></div></div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="semua">Semua</button>
+        <button class="filter-btn" data-filter="berita">Berita</button>
+        <button class="filter-btn" data-filter="pengumuman">Pengumuman</button>
+        <button class="filter-btn" data-filter="agenda">Agenda</button>
+        <button class="filter-btn" data-filter="layanan">Layanan</button>
+        <button class="filter-btn" data-filter="halaman">Halaman</button>
+      </div>
+      <div id="resultCount" style="font-size:13px;color:#666;margin-bottom:14px;"></div>
+      <div class="grid-3" id="fullSearchResults"></div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= AGENDA ================= -->
+<section class="halaman" id="page-agenda">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Agenda</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Agenda Kegiatan</h2>
+      <div class="agenda-list">
+        <div class="agenda-item"><div class="agenda-date"><div class="day">22</div><div class="month">SEP</div></div><div class="agenda-info"><h4>Rapat Koordinasi Perangkat Daerah</h4><p>09.00 WIB - Gedung Serbaguna NarzX</p></div></div>
+        <div class="agenda-item"><div class="agenda-date"><div class="day">25</div><div class="month">SEP</div></div><div class="agenda-info"><h4>Peluncuran Program Desa Digital</h4><p>10.30 WIB - Kecamatan NarzX Timur</p></div></div>
+        <div class="agenda-item"><div class="agenda-date"><div class="day">30</div><div class="month">SEP</div></div><div class="agenda-info"><h4>Musyawarah Perencanaan Pembangunan</h4><p>08.00 WIB - Aula Pemprov NarzX</p></div></div>
+        <div class="agenda-item"><div class="agenda-date"><div class="day">05</div><div class="month">OKT</div></div><div class="agenda-info"><h4>Festival Budaya NarzX 2026</h4><p>15.00 WIB - Alun-Alun Kota NarzX</p></div></div>
+        <div class="agenda-item"><div class="agenda-date"><div class="day">12</div><div class="month">OKT</div></div><div class="agenda-info"><h4>Pelatihan UMKM Digital</h4><p>08.00 WIB - Balai Diklat NarzX</p></div></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= DATA ================= -->
+<section class="halaman" id="page-data">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Data & Statistik</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Ringkasan Statistik</h2>
+      <div class="grid-4">
+        <div class="stat-card"><div class="num">2.5 Jt</div><div class="label">Jumlah Penduduk</div></div>
+        <div class="stat-card"><div class="num">35</div><div class="label">Kecamatan</div></div>
+        <div class="stat-card"><div class="num">120+</div><div class="label">Layanan Publik</div></div>
+        <div class="stat-card"><div class="num">98%</div><div class="label">Kepuasan Masyarakat</div></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Pertumbuhan Ekonomi (2021–2026)</h2>
+      <div class="bar-chart">
+        <div class="bar-item"><div class="val">4.2%</div><div class="bar" data-height="42" style="height:42%;"></div><div class="lbl">2021</div></div>
+        <div class="bar-item"><div class="val">5.1%</div><div class="bar" data-height="51" style="height:51%;"></div><div class="lbl">2022</div></div>
+        <div class="bar-item"><div class="val">5.8%</div><div class="bar" data-height="58" style="height:58%;"></div><div class="lbl">2023</div></div>
+        <div class="bar-item"><div class="val">6.3%</div><div class="bar" data-height="63" style="height:63%;"></div><div class="lbl">2024</div></div>
+        <div class="bar-item"><div class="val">6.8%</div><div class="bar" data-height="68" style="height:68%;"></div><div class="lbl">2025</div></div>
+        <div class="bar-item"><div class="val">7.2%</div><div class="bar" data-height="72" style="height:72%;"></div><div class="lbl">2026</div></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Data per Kecamatan</h2>
+      <table>
+        <thead><tr><th>No</th><th>Kecamatan</th><th>Penduduk</th><th>Luas (km²)</th><th>Kepadatan</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>NarzX Kota</td><td>450.000</td><td>120</td><td>3.750</td></tr>
+          <tr><td>2</td><td>NarzX Timur</td><td>320.000</td><td>200</td><td>1.600</td></tr>
+          <tr><td>3</td><td>NarzX Barat</td><td>280.000</td><td>180</td><td>1.555</td></tr>
+          <tr><td>4</td><td>NarzX Utara</td><td>210.000</td><td>150</td><td>1.400</td></tr>
+          <tr><td>5</td><td>NarzX Selatan</td><td>190.000</td><td>160</td><td>1.187</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</section>
+
+<!-- ================= PPID ================= -->
+<section class="halaman" id="page-ppid">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>PPID</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">PPID Provinsi NarzX</h2>
+      <div class="form-card"><p style="line-height:1.8;color:#444;">Pejabat Pengelola Informasi dan Dokumentasi (PPID) Provinsi NarzX bertugas menyediakan, melayani, dan mendokumentasikan informasi publik sesuai dengan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p></div>
+    </section>
+    <section>
+      <h2 class="section-title">Klasifikasi Informasi</h2>
+      <div class="grid-2">
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Informasi Berkala</h3><ul style="line-height:1.9;color:#444;padding-left:18px;"><li>Laporan Keuangan Tahunan</li><li>Laporan Kinerja Instansi</li><li>Profil dan Struktur Organisasi</li><li>Program dan Kegiatan</li></ul></div>
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Informasi Serta Merta</h3><ul style="line-height:1.9;color:#444;padding-left:18px;"><li>Informasi Bencana Alam</li><li>Keadaan Darurat</li><li>Pengumuman Penting</li><li>Informasi yang Mengancam Publik</li></ul></div>
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Informasi Setiap Saat</h3><ul style="line-height:1.9;color:#444;padding-left:18px;"><li>Daftar Informasi Publik</li><li>Regulasi dan Kebijakan</li><li>Data Statistik Sektoral</li><li>Hasil Penelitian dan Kajian</li></ul></div>
+        <div class="form-card"><h3 style="color:#0b3d2e;margin-bottom:10px;">Informasi Dikecualikan</h3><ul style="line-height:1.9;color:#444;padding-left:18px;"><li>Informasi yang Berkaitan dengan Rahasia Negara</li><li>Informasi yang Berkaitan dengan Data Pribadi</li><li>Informasi yang Berkaitan dengan Rahasia Dagang</li></ul></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-title">Permohonan Informasi</h2>
+      <div class="form-card">
+        <p style="line-height:1.8;color:#444;margin-bottom:14px;">Silakan ajukan permohonan informasi publik melalui halaman <a data-nav="kontak" style="color:#0b3d2e;font-weight:bold;cursor:pointer;">Kontak</a>, atau datang langsung ke kantor PPID Provinsi NarzX.</p>
+        <a class="btn" data-nav="kontak">Ajukan Permohonan</a>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ================= KONTAK ================= -->
+<section class="halaman" id="page-kontak">
+  <div class="breadcrumb"><div class="container"><a data-nav="beranda">Beranda</a> &raquo; <span>Kontak</span></div></div>
+  <div class="container">
+    <section>
+      <h2 class="section-title">Hubungi Kami</h2>
+      <div class="grid-2">
+        <div class="form-card">
+          <h3 style="color:#0b3d2e;margin-bottom:14px;">Informasi Kontak</h3>
+          <p style="line-height:2;color:#444;">
+            <strong>Alamat:</strong><br>Jl. Merdeka No. 1, NarzX<br><br>
+            <strong>Telepon:</strong><br>(021) 123-4567<br><br>
+            <strong>Email:</strong><br>info@narzxgov.id<br><br>
+            <strong>Jam Layanan:</strong><br>Senin – Jumat, 08.00 – 16.00 WIB
+          </p>
+        </div>
+        <div class="form-card">
+          <h3 style="color:#0b3d2e;margin-bottom:14px;">Kirim Pesan</h3>
+          <form id="contactForm">
+            <div class="form-group"><label for="nama">Nama</label><input type="text" id="nama" required placeholder="Nama lengkap"></div>
+            <div class="form-group"><label for="email">Email</label><input type="email" id="email" required placeholder="email@contoh.com"></div>
+            <div class="form-group"><label for="pesan">Pesan</label><textarea id="pesan" rows="5" required placeholder="Tulis pesan Anda..."></textarea></div>
+            <button type="submit" class="btn">Kirim Pesan</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>NarzX Gov</h4><p>Portal resmi Pemerintah Provinsi NarzX. Menyajikan informasi, layanan, dan berita terkini untuk masyarakat.</p></div>
+      <div class="footer-col"><h4>Tautan Cepat</h4><a data-nav="profil">Profil Pemerintahan</a><a data-nav="layanan">Layanan Publik</a><a data-nav="berita">Berita & Pengumuman</a><a data-nav="ppid">PPID</a></div>
+      <div class="footer-col"><h4>Kontak</h4><p>Jl. Merdeka No. 1, NarzX</p><p>Telp: (021) 123-4567</p><p>Email: info@narzxgov.id</p></div>
+      <div class="footer-col"><h4>Ikuti Kami</h4><a onclick="alert('Demo link.')">Facebook</a><a onclick="alert('Demo link.')">Twitter / X</a><a onclick="alert('Demo link.')">Instagram</a><a onclick="alert('Demo link.')">YouTube</a></div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 NarzX Gov. Seluruh hak cipta dilindungi.</div>
+  </div>
+</footer>
+
+<script>
+// ============ SITE INDEX ============
+var SITE_INDEX = [
+  { tipe:'berita', judul:'Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik', ringkas:'Program ini bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat.', url:'#berita-1', tanggal:'19 September 2026', ikon:'📰' },
+  { tipe:'berita', judul:'Gubernur NarzX Resmikan Infrastruktur Jalan Baru', ringkas:'Pembangunan jalan penghubung antar kecamatan resmi dibuka untuk umum.', url:'#berita-2', tanggal:'18 September 2026', ikon:'🛣️' },
+  { tipe:'berita', judul:'Festival Budaya NarzX 2026 Segera Digelar', ringkas:'Acara tahunan ini akan menampilkan berbagai pertunjukan seni dan kuliner khas daerah.', url:'#berita-3', tanggal:'17 September 2026', ikon:'🎭' },
+  { tipe:'berita', judul:'Program Penghijauan di 35 Kecamatan Dimulai', ringkas:'Pemprov menargetkan penanaman 100.000 pohon dalam satu tahun.', url:'#berita-4', tanggal:'15 September 2026', ikon:'🌱' },
+  { tipe:'berita', judul:'Pelatihan Digital Marketing untuk UMKM', ringkas:'Ratusan pelaku UMKM mengikuti pelatihan untuk meningkatkan penjualan online.', url:'#berita-5', tanggal:'14 September 2026', ikon:'💻' },
+  { tipe:'berita', judul:'Puskesmas di NarzX Dapat Alat Kesehatan Baru', ringkas:'Pemerintah Provinsi menyalurkan bantuan alat kesehatan ke 35 puskesmas.', url:'#berita-6', tanggal:'12 September 2026', ikon:'🏥' },
+  { tipe:'pengumuman', judul:'Pendaftaran CPNS Provinsi NarzX 2026 Dibuka', ringkas:'Pendaftaran dibuka 1–15 Oktober 2026 melalui portal SSCASN. Tersedia 250 formasi.', url:'#pengumuman', tanggal:'20 September 2026', ikon:'📢' },
+  { tipe:'pengumuman', judul:'Pengumuman Libur Nasional dan Cuti Bersama', ringkas:'Kantor Pemprov NarzX tutup pada tanggal 25–27 September 2026.', url:'#pengumuman', tanggal:'18 September 2026', ikon:'📢' },
+  { tipe:'pengumuman', judul:'Hasil Seleksi Administrasi Beasiswa NarzX Cerdas 2026', ringkas:'Daftar nama peserta yang lolos seleksi administrasi beasiswa.', url:'#pengumuman', tanggal:'16 September 2026', ikon:'📢' },
+  { tipe:'pengumuman', judul:'Pemeliharaan Sistem Layanan Online', ringkas:'Layanan online tidak dapat diakses sementara pada 22 September 2026 pukul 00.00–04.00 WIB.', url:'#pengumuman', tanggal:'15 September 2026', ikon:'📢' },
+  { tipe:'agenda', judul:'Rapat Koordinasi Perangkat Daerah', ringkas:'09.00 WIB - Gedung Serbaguna NarzX', url:'#agenda', tanggal:'22 September 2026', ikon:'📅' },
+  { tipe:'agenda', judul:'Peluncuran Program Desa Digital', ringkas:'10.30 WIB - Kecamatan NarzX Timur', url:'#agenda', tanggal:'25 September 2026', ikon:'📅' },
+  { tipe:'agenda', judul:'Musyawarah Perencanaan Pembangunan', ringkas:'08.00 WIB - Aula Pemprov NarzX', url:'#agenda', tanggal:'30 September 2026', ikon:'📅' },
+  { tipe:'agenda', judul:'Festival Budaya NarzX 2026', ringkas:'15.00 WIB - Alun-Alun Kota NarzX', url:'#agenda', tanggal:'5 Oktober 2026', ikon:'📅' },
+  { tipe:'layanan', judul:'Perizinan Online', ringkas:'Ajukan perizinan usaha, bangunan, dan lainnya secara online.', url:'#layanan', tanggal:'', ikon:'📄' },
+  { tipe:'layanan', judul:'Layanan Kesehatan', ringkas:'Informasi puskesmas, rumah sakit, dan program kesehatan daerah.', url:'#layanan', tanggal:'', ikon:'🏥' },
+  { tipe:'layanan', judul:'Layanan Pendidikan', ringkas:'Beasiswa, bantuan sekolah, dan program pendidikan daerah.', url:'#layanan', tanggal:'', ikon:'🎓' },
+  { tipe:'layanan', judul:'Infrastruktur', ringkas:'Permohonan perbaikan jalan, jembatan, dan fasilitas umum.', url:'#layanan', tanggal:'', ikon:'🛣️' },
+  { tipe:'layanan', judul:'Tenaga Kerja', ringkas:'Kartu AK-1, pelatihan kerja, dan informasi lowongan kerja.', url:'#layanan', tanggal:'', ikon:'💼' },
+  { tipe:'layanan', judul:'Data Statistik', ringkas:'Data penduduk, ekonomi, dan statistik sektoral NarzX.', url:'#data', tanggal:'', ikon:'📊' },
+  { tipe:'halaman', judul:'Profil Provinsi NarzX', ringkas:'Visi, misi, dan sejarah Provinsi NarzX.', url:'#profil', tanggal:'', ikon:'ℹ️' },
+  { tipe:'halaman', judul:'Pemerintahan', ringkas:'Struktur organisasi, pejabat, dinas, dan badan.', url:'#pemerintahan', tanggal:'', ikon:'🏛️' },
+  { tipe:'halaman', judul:'PPID', ringkas:'Pejabat Pengelola Informasi dan Dokumentasi Provinsi NarzX.', url:'#ppid', tanggal:'', ikon:'📁' },
+  { tipe:'halaman', judul:'Kontak', ringkas:'Alamat, telepon, email, dan formulir kontak.', url:'#kontak', tanggal:'', ikon:'✉️' }
+];
+
+// ============ BERITA DATA ============
+var BERITA_DATA = {
+  '1': { judul:'Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik', tanggal:'19 September 2026', ikon:'📰', isi:[
+    'Pemerintah Provinsi NarzX resmi meluncurkan program digitalisasi layanan publik yang bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan masyarakat. Program ini mencakup berbagai layanan, mulai dari perizinan, kesehatan, pendidikan, hingga layanan kependudukan.',
+    'Gubernur NarzX dalam sambutannya menyampaikan bahwa digitalisasi merupakan langkah strategis untuk mewujudkan tata kelola pemerintahan yang transparan dan akuntabel. "Kami ingin masyarakat bisa mengakses layanan kapan saja dan di mana saja tanpa harus datang ke kantor," ujarnya.',
+    'Program ini akan diimplementasikan secara bertahap di 35 kecamatan. Pada tahap pertama, sebanyak 10 kecamatan akan menjadi pilot project. Masyarakat dapat mengakses layanan melalui portal resmi NarzX Gov atau aplikasi mobile yang akan segera dirilis.',
+    'Selain itu, Pemprov juga menyiapkan pelatihan bagi aparatur desa dan kecamatan agar dapat mendampingi masyarakat dalam menggunakan layanan digital. Dengan demikian, diharapkan tidak ada kesenjangan digital di wilayah NarzX.'
+  ]},
+  '2': { judul:'Gubernur NarzX Resmikan Infrastruktur Jalan Baru', tanggal:'18 September 2026', ikon:'🛣️', isi:[
+    'Gubernur NarzX resmi meresmikan jalan penghubung antar kecamatan yang telah lama ditunggu masyarakat. Jalan sepanjang 12 kilometer ini menghubungkan Kecamatan NarzX Timur dengan NarzX Selatan.',
+    'Peresmian ditandai dengan penandatanganan prasasti dan pemotongan pita. Turut hadir dalam acara tersebut sejumlah pejabat daerah, tokoh masyarakat, dan warga setempat.',
+    'Pembangunan jalan ini menelan anggaran sekitar Rp 45 miliar yang bersumber dari APBD Provinsi dan bantuan pusat. Diharapkan jalan ini dapat memperlancar distribusi hasil pertanian dan meningkatkan perekonomian warga.',
+    'Pemerintah Provinsi berkomitmen untuk terus mengembangkan infrastruktur di seluruh wilayah NarzX secara merata dan berkelanjutan.'
+  ]},
+  '3': { judul:'Festival Budaya NarzX 2026 Segera Digelar', tanggal:'17 September 2026', ikon:'🎭', isi:[
+    'Festival Budaya NarzX 2026 akan digelar pada 5–7 Oktober 2026 di Alun-Alun Kota NarzX. Acara tahunan ini akan menampilkan berbagai pertunjukan seni, pameran kerajinan, dan kuliner khas daerah.',
+    'Menurut Kepala Dinas Pariwisata, festival ini akan diikuti oleh 35 kecamatan dengan total peserta lebih dari 1.500 orang. Berbagai lomba tradisional juga akan digelar untuk memeriahkan acara.',
+    'Festival ini diharapkan dapat meningkatkan kunjungan wisatawan dan memperkenalkan budaya NarzX ke tingkat nasional. Pemerintah Provinsi juga menyiapkan penginapan dan transportasi bagi pengunjung dari luar kota.'
+  ]},
+  '4': { judul:'Program Penghijauan di 35 Kecamatan Dimulai', tanggal:'15 September 2026', ikon:'🌱', isi:[
+    'Pemerintah Provinsi NarzX memulai program penghijauan serentak di 35 kecamatan. Program ini menargetkan penanaman 100.000 pohon dalam satu tahun.',
+    'Jenis pohon yang ditanam meliputi mahoni, trembesi, dan berbagai tanaman buah seperti mangga, rambutan, dan durian. Selain itu, pohon bakau juga akan ditanam di kawasan pesisir.',
+    'Program ini melibatkan pelajar, komunitas lingkungan, dan masyarakat umum. Diharapkan program ini dapat mengurangi emisi karbon dan memperbaiki kualitas udara di Provinsi NarzX.'
+  ]},
+  '5': { judul:'Pelatihan Digital Marketing untuk UMKM', tanggal:'14 September 2026', ikon:'💻', isi:[
+    'Ratusan pelaku UMKM di Provinsi NarzX mengikuti pelatihan digital marketing yang diselenggarakan oleh Dinas Koperasi dan UMKM. Pelatihan ini bertujuan meningkatkan penjualan produk UMKM melalui platform online.',
+    'Materi pelatihan meliputi pembuatan konten, foto produk, pemasaran media sosial, dan penggunaan marketplace. Peserta juga dibimbing praktik langsung membuat toko online.',
+    'Pemerintah Provinsi berkomitmen untuk terus mendampingi UMKM dalam bertransformasi digital. Diharapkan produk UMKM NarzX dapat bersaing di pasar nasional bahkan internasional.'
+  ]},
+  '6': { judul:'Puskesmas di NarzX Dapat Alat Kesehatan Baru', tanggal:'12 September 2026', ikon:'🏥', isi:[
+    'Pemerintah Provinsi NarzX menyalurkan bantuan alat kesehatan ke 35 puskesmas yang tersebar di seluruh kecamatan. Bantuan ini berupa alat pemeriksaan tekanan darah, alat USG, dan alat laboratorium sederhana.',
+    'Kepala Dinas Kesehatan menyampaikan bahwa bantuan ini merupakan bagian dari program peningkatan kualitas layanan kesehatan dasar. Diharapkan masyarakat dapat memperoleh layanan kesehatan yang lebih baik.',
+    'Selain bantuan alat, Pemprov juga mengadakan pelatihan bagi tenaga kesehatan di puskesmas agar dapat menggunakan peralatan baru dengan optimal.'
+  ]}
+};
+
+// ============ NAVIGASI ============
+function showPage(nama) {
+  document.querySelectorAll('section.halaman').forEach(function(s) { s.classList.remove('aktif'); });
+  var target = document.getElementById('page-' + nama);
+  if (target) target.classList.add('aktif');
+
+  document.querySelectorAll('nav ul li a').forEach(function(a) {
+    a.classList.toggle('active', a.dataset.nav === nama);
+  });
+
+  window.scrollTo(0, 0);
+  location.hash = nama;
+}
+
+function showBeritaDetail(id) {
+  var data = BERITA_DATA[id] || BERITA_DATA['1'];
+  var el = document.getElementById('beritaDetail');
+  el.innerHTML =
+    '<div style="font-size:13px;color:#888;margin-bottom:8px;">' + data.tanggal + ' | Oleh Admin NarzX Gov</div>' +
+    '<h1 style="color:#0b3d2e;font-size:26px;line-height:1.4;margin-bottom:16px;">' + data.judul + '</h1>' +
+    '<div style="height:240px;background:linear-gradient(135deg,#cbd5e1,#94a3b8);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:60px;margin-bottom:20px;">' + data.ikon + '</div>' +
+    data.isi.map(function(p) { return '<p style="line-height:1.9;color:#444;margin-bottom:14px;">' + p + '</p>'; }).join('') +
+    '<div style="margin-top:24px;"><a class="btn btn-outline" data-nav="berita">&larr; Kembali ke Berita</a></div>';
+  showPage('berita-detail');
+  bindNav();
+}
+
+function bindNav() {
+  document.querySelectorAll('[data-nav]').forEach(function(el) {
+    el.onclick = function(e) {
+      e.preventDefault();
+      var target = el.dataset.nav;
+      if (target) showPage(target);
+    };
+  });
+  document.querySelectorAll('[data-berita]').forEach(function(el) {
+    el.onclick = function(e) {
+      e.preventDefault();
+      showBeritaDetail(el.dataset.berita);
+    };
+  });
+}
+
+// ============ HIGHLIGHT ============
+function highlight(text, q) {
+  if (!q) return text;
+  var safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp('(' + safe + ')', 'gi'), '<mark>$1</mark>');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  bindNav();
+
+  // Menu mobile
+  document.querySelector('.menu-toggle').addEventListener('click', function() {
+    document.querySelector('nav ul').classList.toggle('open');
+  });
+
+  // Cek hash awal
+  var hash = location.hash.replace('#','');
+  if (hash) {
+    if (hash.startsWith('berita-')) showBeritaDetail(hash.replace('berita-',''));
+    else showPage(hash);
+  }
+
+  // ============ PENCARIAN DROPDOWN ============
+  var searchInput = document.querySelector('.search-box input');
+  var searchResults = document.getElementById('searchResults');
+
+  searchInput.addEventListener('input', function(e) {
+    var q = e.target.value.trim().toLowerCase();
+    searchResults.innerHTML = '';
+    if (q.length < 2) { searchResults.style.display = 'none'; return; }
+
+    var results = SITE_INDEX.filter(function(item) {
+      return item.judul.toLowerCase().indexOf(q) > -1 ||
+             item.ringkas.toLowerCase().indexOf(q) > -1 ||
+             item.tipe.toLowerCase().indexOf(q) > -1;
+    });
+
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="search-item"><div class="search-info"><strong>Tidak ditemukan</strong><span>Tidak ada hasil untuk "' + e.target.value + '"</span></div></div>';
+      searchResults.style.display = 'block';
+      return;
+    }
+
+    results.slice(0, 8).forEach(function(item) {
+      var a = document.createElement('a');
+      a.className = 'search-item';
+      a.innerHTML = '<div class="search-icon">' + item.ikon + '</div><div class="search-info"><strong>' + highlight(item.judul, q) + '</strong><span>' + item.tipe.toUpperCase() + ' • ' + highlight(item.ringkas, q) + '</span></div>';
+      a.onclick = function() {
+        searchResults.style.display = 'none';
+        searchInput.value = '';
+        if (item.url.indexOf('#berita-') === 0) showBeritaDetail(item.url.replace('#berita-',''));
+        else showPage(item.url.replace('#',''));
+      };
+      searchResults.appendChild(a);
+    });
+
+    if (results.length > 8) {
+      var more = document.createElement('a');
+      more.className = 'search-more';
+      more.textContent = 'Lihat semua ' + results.length + ' hasil →';
+      more.onclick = function() {
+        searchResults.style.display = 'none';
+        searchInput.value = '';
+        showPage('pencarian');
+        document.getElementById('fullSearchInput').value = e.target.value.trim();
+        renderFullSearch();
+      };
+      searchResults.appendChild(more);
+    }
+
+    searchResults.style.display = 'block';
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-box')) searchResults.style.display = 'none';
+  });
+
+  searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.value.trim() !== '') {
+      var val = e.target.value.trim();
+      searchInput.value = '';
+      searchResults.style.display = 'none';
+      showPage('pencarian');
+      document.getElementById('fullSearchInput').value = val;
+      renderFullSearch();
+    }
+  });
+
+  // ============ PENCARIAN LENGKAP ============
+  var fullSearchInput = document.getElementById('fullSearchInput');
+  var fullSearchResults = document.getElementById('fullSearchResults');
+  var filterBtns = document.querySelectorAll('#page-pencarian .filter-btn');
+  var activeFilter = 'semua';
+
+  function renderFullSearch() {
+    var q = fullSearchInput.value.trim().toLowerCase();
+    fullSearchResults.innerHTML = '';
+
+    var results = SITE_INDEX.filter(function(item) {
+      var matchQ = q === '' || item.judul.toLowerCase().indexOf(q) > -1 || item.ringkas.toLowerCase().indexOf(q) > -1;
+      var matchFilter = activeFilter === 'semua' || item.tipe === activeFilter;
+      return matchQ && matchFilter;
+    });
+
+    document.getElementById('resultCount').textContent = results.length + ' hasil ditemukan';
+
+    if (results.length === 0) {
+      fullSearchResults.innerHTML = '<div class="form-card" style="text-align:center;color:#666;grid-column:1/-1;"><div style="font-size:40px;margin-bottom:10px;">🔍</div><p>Tidak ada hasil' + (q ? ' untuk "<strong>' + q + '</strong>"' : '') + '.</p></div>';
+      return;
+    }
+
+    results.forEach(function(item) {
+      var a = document.createElement('a');
+      a.className = 'card';
+      a.style.textDecoration = 'none';
+      a.style.cursor = 'pointer';
+      a.innerHTML = '<div class="card-img" style="height:120px;font-size:30px;">' + item.ikon + '</div><div class="card-body"><div class="date">' + item.tipe.toUpperCase() + (item.tanggal ? ' • ' + item.tanggal : '') + '</div><h3>' + highlight(item.judul, q) + '</h3><p>' + highlight(item.ringkas, q) + '</p></div>';
+      a.onclick = function() {
+        if (item.url.indexOf('#berita-') === 0) showBeritaDetail(item.url.replace('#berita-',''));
+        else showPage(item.url.replace('#',''));
+      };
+      fullSearchResults.appendChild(a);
+    });
+  }
+
+  fullSearchInput.addEventListener('input', renderFullSearch);
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderFullSearch();
+    });
+  });
+
+  // ============ FILTER BERITA ============
+  var beritaCards = document.querySelectorAll('#beritaGrid .card');
+  var beritaFilterBtns = document.querySelectorAll('[data-berita-filter]');
+  var beritaSearchInput = document.getElementById('beritaSearchInput');
+  var beritaEmpty = document.getElementById('beritaEmpty');
+  var beritaCount = document.getElementById('beritaResultCount');
+  var beritaKategori = 'semua';
+
+  function terapkanFilterBerita() {
+    var q = (beritaSearchInput.value || '').trim().toLowerCase();
+    var tampil = 0;
+    beritaCards.forEach(function(card) {
+      var kat = card.dataset.kategori || '';
+      var judul = card.dataset.judul || '';
+      var ringkas = card.dataset.ringkas || '';
+      var cocok = (beritaKategori === 'semua' || kat === beritaKategori) && (q === '' || judul.indexOf(q) > -1 || ringkas.indexOf(q) > -1);
+      if (cocok) { card.style.display = ''; tampil++; } else { card.style.display = 'none'; }
+    });
+    beritaCount.textContent = tampil + ' berita ditampilkan';
+    beritaEmpty.style.display = tampil === 0 ? 'block' : 'none';
+  }
+
+  beritaFilterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      beritaFilterBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      beritaKategori = btn.dataset.beritaFilter;
+      terapkanFilterBerita();
+    });
+  });
+  beritaSearchInput.addEventListener('input', terapkanFilterBerita);
+
+  // ============ PENCARIAN PENGUMUMAN ============
+  var pengItems = document.querySelectorAll('#pengumumanList .pengumuman-item');
+  var pengInput = document.getElementById('pengumumanSearchInput');
+  var pengEmpty = document.getElementById('pengumumanEmpty');
+  var pengCount = document.getElementById('pengumumanResultCount');
+
+  function terapkanPengumuman() {
+    var q = (pengInput.value || '').trim().toLowerCase();
+    var tampil = 0;
+    pengItems.forEach(function(item) {
+      var judul = item.dataset.judul || '';
+      var ringkas = item.dataset.ringkas || '';
+      var cocok = q === '' || judul.indexOf(q) > -1 || ringkas.indexOf(q) > -1;
+      if (cocok) { item.style.display = ''; tampil++; } else { item.style.display = 'none'; }
+    });
+    pengCount.textContent = tampil + ' pengumuman ditampilkan';
+    pengEmpty.style.display = tampil === 0 ? 'block' : 'none';
+  }
+
+  pengInput.addEventListener('input', terapkanPengumuman);
+
+  // ============ FORM LAYANAN ============
+  document.getElementById('layananForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var nama = document.getElementById('namaLayanan').value;
+    var jenis = document.getElementById('jenisLayanan').value;
+    document.getElementById('hasilLayanan').innerHTML =
+      '<div class="form-card" style="margin-top:20px;border-left:4px solid #ffd700;">' +
+      '<h3 style="color:#0b3d2e;margin-bottom:8px;">Permohonan Diterima</h3>' +
+      '<p><strong>Nama:</strong> ' + nama + '</p>' +
+      '<p><strong>Jenis Layanan:</strong> ' + jenis + '</p>' +
+      '<p><strong>Status:</strong> Menunggu verifikasi (demo)</p>' +
+      '<p style="font-size:13px;color:#666;margin-top:10px;">Nomor Tiket: NX-' + Date.now().toString().slice(-6) + '</p></div>';
+    this.reset();
+  });
+
+  // ============ FORM KONTAK ============
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Terima kasih! Pesan Anda telah terkirim (demo).');
+    this.reset();
+  });
+
+  // ============ BAR CHART ============
+  setTimeout(function() {
+    document.querySelectorAll('.bar').forEach(function(bar) {
+      var h = bar.dataset.height || '50';
+      bar.style.height = '0';
+      setTimeout(function() { bar.style.height = h + '%'; }, 200);
+    });
+  }, 500);
+});
+</script>
+</body>
+</html>
