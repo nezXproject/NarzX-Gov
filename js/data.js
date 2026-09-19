@@ -83,6 +83,22 @@ const SITE_INDEX = [
     tanggal: '15 September 2026',
     ikon: '📢'
   },
+  {
+    tipe: 'pengumuman',
+    judul: 'Penerimaan Bantuan Sosial Tahap III 2026',
+    ringkas: 'Pendaftaran bantuan sosial tahap III dibuka sampai 30 September 2026.',
+    url: 'pengumuman.html',
+    tanggal: '10 September 2026',
+    ikon: '📢'
+  },
+  {
+    tipe: 'pengumuman',
+    judul: 'Larangan Pembakaran Lahan Selama Musim Kemarau',
+    ringkas: 'Masyarakat diminta tidak membakar lahan selama musim kemarau.',
+    url: 'pengumuman.html',
+    tanggal: '5 September 2026',
+    ikon: '📢'
+  },
 
   // ===== AGENDA =====
   {
@@ -115,6 +131,14 @@ const SITE_INDEX = [
     ringkas: '15.00 WIB - Alun-Alun Kota NarzX',
     url: 'agenda.html',
     tanggal: '5 Oktober 2026',
+    ikon: '📅'
+  },
+  {
+    tipe: 'agenda',
+    judul: 'Pelatihan UMKM Digital',
+    ringkas: '08.00 WIB - Balai Diklat NarzX',
+    url: 'agenda.html',
+    tanggal: '12 Oktober 2026',
     ikon: '📅'
   },
 
