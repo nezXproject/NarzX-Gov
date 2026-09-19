@@ -29,6 +29,7 @@
       </a>
       <div class="search-box">
         <input type="text" placeholder="Cari informasi...">
+        <div id="searchResults"></div>
       </div>
     </div>
     <button class="menu-toggle">☰ Menu</button>
@@ -40,6 +41,7 @@
           <li><a href="pemerintahan.html">Pemerintahan</a></li>
           <li><a href="layanan.html">Layanan Publik</a></li>
           <li><a href="berita.html" class="active">Berita</a></li>
+          <li><a href="pengumuman.html">Pengumuman</a></li>
           <li><a href="agenda.html">Agenda</a></li>
           <li><a href="data.html">Data & Statistik</a></li>
           <li><a href="ppid.html">PPID</a></li>
@@ -58,40 +60,7 @@
 
   <div class="container">
     <section>
-      <div class="form-card">
-        <div style="font-size:13px;color:#888;margin-bottom:8px;">19 September 2026 | Oleh Admin NarzX Gov</div>
-        <h1 style="color:#0b3d2e;font-size:26px;line-height:1.4;margin-bottom:16px;">
-          Pemprov NarzX Luncurkan Program Digitalisasi Layanan Publik
-        </h1>
-        <div style="height:240px;background:linear-gradient(135deg,#cbd5e1,#94a3b8);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:60px;margin-bottom:20px;">📰</div>
-        <p style="line-height:1.9;color:#444;margin-bottom:14px;">
-          Pemerintah Provinsi NarzX resmi meluncurkan program digitalisasi layanan publik
-          yang bertujuan mempercepat proses administrasi dan meningkatkan kenyamanan
-          masyarakat. Program ini mencakup berbagai layanan, mulai dari perizinan,
-          kesehatan, pendidikan, hingga layanan kependudukan.
-        </p>
-        <p style="line-height:1.9;color:#444;margin-bottom:14px;">
-          Gubernur NarzX dalam sambutannya menyampaikan bahwa digitalisasi merupakan
-          langkah strategis untuk mewujudkan tata kelola pemerintahan yang transparan
-          dan akuntabel. "Kami ingin masyarakat bisa mengakses layanan kapan saja dan
-          di mana saja tanpa harus datang ke kantor," ujarnya.
-        </p>
-        <p style="line-height:1.9;color:#444;margin-bottom:14px;">
-          Program ini akan diimplementasikan secara bertahap di 35 kecamatan. Pada
-          tahap pertama, sebanyak 10 kecamatan akan menjadi pilot project. Masyarakat
-          dapat mengakses layanan melalui portal resmi NarzX Gov atau aplikasi mobile
-          yang akan segera dirilis.
-        </p>
-        <p style="line-height:1.9;color:#444;">
-          Selain itu, Pemprov juga menyiapkan pelatihan bagi aparatur desa dan kecamatan
-          agar dapat mendampingi masyarakat dalam menggunakan layanan digital. Dengan
-          demikian, diharapkan tidak ada kesenjangan digital di wilayah NarzX.
-        </p>
-
-        <div style="margin-top:24px;">
-          <a href="berita.html" class="btn btn-outline">&larr; Kembali ke Berita</a>
-        </div>
-      </div>
+      <div class="form-card" id="beritaDetail"></div>
     </section>
   </div>
 
@@ -129,6 +98,7 @@
     </div>
   </footer>
 
+  <script src="js/data.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
