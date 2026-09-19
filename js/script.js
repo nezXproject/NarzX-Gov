@@ -7,12 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('click', () => navUl.classList.toggle('open'));
   }
 
-  // ============ PENCARIAN ============
+  // ============ HIGHLIGHT ============
+  function highlight(text, q) {
+    if (!q) return text;
+    const safe = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp('(' + safe + ')', 'gi');
+    return text.replace(re, '<mark>$1</mark>');
+  }
+
+  // ============ PENCARIAN DROPDOWN ============
   const searchInput = document.querySelector('.search-box input');
   const searchResults = document.getElementById('searchResults');
 
-  if (searchInput && searchResults) {
-    // Buat container hasil jika belum ada
+  if (searchInput && searchResults && typeof SITE_INDEX !== 'undefined') {
     searchInput.addEventListener('input', (e) => {
       const q = e.target.value.trim().toLowerCase();
       searchResults.innerHTML = '';
@@ -22,12 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Filter indeks
-      const results = SITE_INDEX.filter(item => {
-        return item.judul.toLowerCase().includes(q) ||
-               item.ringkas.toLowerCase().includes(q) ||
-               item.tipe.toLowerCase().includes(q);
-      });
+      const results = SITE_INDEX.filter(item =>
+        item.judul.toLowerCase().includes(q) ||
+        item.ringkas.toLowerCase().includes(q) ||
+        item.tipe.toLowerCase().includes(q)
+      );
 
       if (results.length === 0) {
         searchResults.innerHTML = `
@@ -41,38 +47,36 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Batasi 8 hasil
       results.slice(0, 8).forEach(item => {
-        const div = document.createElement('a');
-        div.className = 'search-item';
-        div.href = item.url;
-        div.innerHTML = `
+        const a = document.createElement('a');
+        a.className = 'search-item';
+        a.href = item.url;
+        a.innerHTML = `
           <div class="search-icon">${item.ikon}</div>
           <div class="search-info">
             <strong>${highlight(item.judul, q)}</strong>
             <span>${item.tipe.toUpperCase()} • ${highlight(item.ringkas, q)}</span>
           </div>`;
-        searchResults.appendChild(div);
+        searchResults.appendChild(a);
       });
 
       if (results.length > 8) {
-        const more = document.createElement('div');
+        const more = document.createElement('a');
         more.className = 'search-more';
-        more.textContent = `+${results.length - 8} hasil lainnya...`;
+        more.href = 'pencarian.html?q=' + encodeURIComponent(e.target.value.trim());
+        more.textContent = `Lihat semua ${results.length} hasil →`;
         searchResults.appendChild(more);
       }
 
       searchResults.style.display = 'block';
     });
 
-    // Tutup hasil saat klik di luar
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.search-box')) {
         searchResults.style.display = 'none';
       }
     });
 
-    // Enter = buka halaman pencarian lengkap
     searchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && e.target.value.trim() !== '') {
         window.location.href = 'pencarian.html?q=' + encodeURIComponent(e.target.value.trim());
@@ -80,15 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ============ PENCARIAN DI HALAMAN PENCARIAN ============
+  // ============ HALAMAN PENCARIAN LENGKAP ============
   const fullSearchInput = document.getElementById('fullSearchInput');
   const fullSearchResults = document.getElementById('fullSearchResults');
   const filterBtns = document.querySelectorAll('.filter-btn');
 
-  if (fullSearchInput && fullSearchResults) {
+  if (fullSearchInput && fullSearchResults && typeof SITE_INDEX !== 'undefined') {
     const params = new URLSearchParams(window.location.search);
-    const initialQ = params.get('q') || '';
-    fullSearchInput.value = initialQ;
+    fullSearchInput.value = params.get('q') || '';
 
     let activeFilter = 'semua';
 
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const q = fullSearchInput.value.trim().toLowerCase();
       fullSearchResults.innerHTML = '';
 
-      let results = SITE_INDEX.filter(item => {
+      const results = SITE_INDEX.filter(item => {
         const matchQ = q === '' ||
           item.judul.toLowerCase().includes(q) ||
           item.ringkas.toLowerCase().includes(q);
@@ -105,13 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const countEl = document.getElementById('resultCount');
-      if (countEl) {
-        countEl.textContent = results.length + ' hasil ditemukan';
-      }
+      if (countEl) countEl.textContent = results.length + ' hasil ditemukan';
 
       if (results.length === 0) {
         fullSearchResults.innerHTML = `
-          <div class="form-card" style="text-align:center;color:#666;">
+          <div class="form-card" style="text-align:center;color:#666;grid-column:1/-1;">
             <div style="font-size:40px;margin-bottom:10px;">🔍</div>
             <p>Tidak ada hasil${q ? ` untuk "<strong>${q}</strong>"` : ''}.</p>
           </div>`;
@@ -146,14 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderFullResults();
-  }
-
-  // ============ HIGHLIGHT ============
-  function highlight(text, q) {
-    if (!q) return text;
-    const safe = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const re = new RegExp('(' + safe + ')', 'gi');
-    return text.replace(re, '<mark>$1</mark>');
   }
 
   // ============ FORM KONTAK ============
@@ -277,4 +270,5 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="berita.html" class="btn btn-outline">&larr; Kembali ke Berita</a>
       </div>`;
   }
+
 });
